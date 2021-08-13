@@ -1,24 +1,28 @@
 {
-  "name": "Chrome Extension with React & Webpack",
-  "options_page": "options.html",
-  "background": {
-    "page": "background.html"
+  "manifest_version": 2,
+  "version": "0.0.0.7",
+  "name": "Collab: Video calls in Notion— Daily API demo",
+  "description": "Use the Daily API to embed and transcribe video calls directly in your Notion workspace.",
+  "background": { "service_worker": "background.bundle.js" },
+  "icons": {
+    "128": "icon-128.png"
   },
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
-  },
-  "icons": {
-    "128": "icon-128.png"
-  },
-  "content_scripts": [{
-    "matches": ["http://*/*", "https://*/*", "<all_urls>"],
-    "js": ["contentScript.bundle.js"],
-    "css": ["content.styles.css"]
-  }],
-  "manifest_version": 2,
+  "permissions": ["https://daily-notion-api.vercel.app/*", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.notion.so/*"],
+      "exclude_matches": [
+        "https://www.notion.so/onboarding",
+        "https://www.notion.so/install-integration/*",
+        "https://www.notion.so/my-integrations/*"
+      ],
+      "js": ["contentScript.bundle.js"]
+    }
+  ],
+  "web_accessible_resources": ["icon-128.png", "icon-34.png"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

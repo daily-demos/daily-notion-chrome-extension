@@ -1,117 +1,70 @@
-# Chrome Extension Boilerplate with React 16.6+ and Webpack 4+
+# Daily Collab: Embed and transcribe Daily calls in Notion pages
 
-## Features
+### Demo Chrome extension app from [Daily](https://www.daily.co/)
 
-This is a basic Chrome Extensions boilerplate to help you write modular and modern Javascript code, load CSS easily and [automatic reload the browser on code changes](https://webpack.github.io/docs/webpack-dev-server.html#automatic-refresh).
+Daily Collab is a demo Chrome extension that allows users to embed and transcribe Daily calls directly into Notion workspaces.
 
-This boilerplate is updated with:
+The extension can be run locally or downloaded from the [Chrome store](https://chrome.google.com/webstore/detail/collab-video-calls-in-not/ikmjimibciifjefngaabnojnnlclfhnj). Once the extension has been added to your browser, Daily calls can be started or joined from any Notion workspace page.
 
-- [React 16.6+](https://reactjs.org)
-- [Webpack 4+](https://webpack.js.org/)
-- [React Hot Loader](https://github.com/gaearon/react-hot-loader)
-- [eslint-config-react-app](https://www.npmjs.com/package/eslint-config-react-app)
+To transcribe videos, the extension needs to be authorized by a Notion workspace admin. Once authorized, admins will receive an access code they can share with workspace members for each member to authorize the extension to edit Notion pages via transcription text additions.
 
-This boilerplate is heavily inspired by and adapted from [https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate), with additional support for React 16.6+ features and Webpack 4+.
+This demo uses a custom Daily API built for this project. The API is currently private so any forked versions must use the private API's endpoints (or your own custom ones) for Daily room creation.
 
-Please open up an issue to nudge me to keep the npm packages up-to-date. FYI, it takes time to make different packages with different versions work together nicely.
+The API repo will be made public once transcription—an upcoming Daily feature— is public. :)
 
-## Installing and Running
+---
 
-### Procedures:
+## Setup
 
-1. Check if your [Node.js](https://nodejs.org/) version is >= 8.
-2. Clone this repository.
-3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
-4. Change the name of your extension on `src/manifest.json`.
-5. Run `npm install` to install the dependencies.
-6. Run `npm start`
-7. Load your extension on Chrome following:
-    1. Access `chrome://extensions/`
-    2. Check `Developer mode`
-    3. Click on `Load unpacked extension`
-    4. Select the `build` folder.
-8. Happy hacking.
+### Requirements
 
-## Structure
-All your extension's code must be placed in the `src` folder.
+To use this Chrome extension locally, you will need to create a [Notion workspace](https://www.notion.so).
 
-The boilerplate is already prepared to have a popup, an options page, a background page, and a new tab page (which replaces the new tab page of your browser). But feel free to customize these.
+### Running and adding the Chrome extension locally
 
-## Webpack auto-reload and HRM
-To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `npm start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
+1. Clone this repository.
+2. Run `npm install` to install the dependencies.
+3. Run `npm run start`
+4. Load your extension on Chrome following:
+   1. Access `chrome://extensions/`
+   2. Check `Developer mode`
+   3. Click on `Load unpacked extension`
+   4. Select the `build` folder.
 
-You can run the dev mode on other port if you want. Just specify the env var `port` like this:
+---
 
-```
-$ PORT=6002 npm run start
-```
+## Usage
 
-## Content Scripts
+This extension will only load on Notion.so pages and otherwise has no impact on your browser.
 
-Although this boilerplate uses the webpack dev server, it's also prepared to write all your bundles files on the disk at every code change, so you can point, on your extension manifest, to your bundles that you want to use as [content scripts](https://developer.chrome.com/extensions/content_scripts), but you need to exclude these entry points from hot reloading [(why?)](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate/issues/4#issuecomment-261788690). To do so you need to expose which entry points are content scripts on the `webpack.config.js` using the `chromeExtensionBoilerplate -> notHotReload` config. Look the example below.
+To start a call, choose an audio or video-only call and whether you'd like the transcription feature enabled. (Video calls are the default and transcription is off by default.) Before joining the call, you will see the "Lobby" view, where you can select which media devices you would like to use, and see a video preview of yourself before entering the call.
 
-Let's say that you want use the `myContentScript` entry point as content script, so on your `webpack.config.js` you will configure the entry point and exclude it from hot reloading, like this:
+For others to join the call, they can visit the same Notion page you're viewing and click `Join live call`. They must also have the Chrome extension installed to see this button.
 
-```js
-{
-  …
-  entry: {
-    myContentScript: "./src/js/myContentScript.js"
-  },
-  chromeExtensionBoilerplate: {
-    notHotReload: ["myContentScript"]
-  }
-  …
-}
-```
+<img src="call.gif" style="max-width:500px;" alt="Notion doc with Start live call button">
 
-and on your `src/manifest.json`:
+### Authorizing transcription
 
-```json
-{
-  "content_scripts": [
-    {
-      "matches": ["https://www.google.com/*"],
-      "js": ["myContentScript.bundle.js"]
-    }
-  ]
-}
+The transcription feature requires Daily Collab to use the Notion API, which must be authorized by a Notion workspace admin.
 
-```
+To enable this feature as a workspace member, you will need to authorize transcription locally by submitting your workspace access code through Daily Collab's `Members` authorization form.
 
-## Packing
-After the development of your extension run the command
+Only an admin can get the workspace access code. To get this code, a workspace admin must follow the auth flow via Daily Collab's `Admin` authorization form, (i.e. Click the `Authorize` button.)
 
-```
-$ NODE_ENV=production npm run build
-```
-Now, the content of `build` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
+<img src="authorization.gif" style="max-width:500px;" alt="Click chevron button to open authorization form">
 
-## Secrets
-If you are developing an extension that talks with some API you probably are using different keys for testing and production. Is a good practice you not commit your secret keys and expose to anyone that have access to the repository.
+If you are both an Admin and would like to use the transcription feature, follow the admin auth flow and submit the code through the `Members` form.
 
-To this task this boilerplate import the file `./secrets.<THE-NODE_ENV>.js` on your modules through the module named as `secrets`, so you can do things like this:
+### Using the transcription feature
 
-_./secrets.development.js_
+Once transcription is authorized, it can be enabled for any call. Transcription can be started once you are in the call via the `Start transcription` button. Transcription can be stopped at any point during a live call.
 
-```js
-export default { key: "123" };
-```
+_Note: Transcription typically has a ~5 second delay before text will start appearing in the Notion page._
 
-_./src/popup.js_
+<img src="transcription.gif" style="max-width:500px;" alt="Click chevron button to open authorization form">
 
-```js
-import secrets from "secrets";
-ApiCall({ key: secrets.key });
-```
-:point_right: The files with name `secrets.*.js` already are ignored on the repository.
+Admins must explicitly allow write access for Notion documents, so any transcription errors may mean the page has not been authorized yet. (If this happens, contact your Notion admin to authorize that Notion page through the Admin auth flow.)
 
+## Boilerplate
 
-## Resources:
-
-- [Webpack documentation](https://webpack.github.io/docs)
-- [Chrome Extension documentation](https://developer.chrome.com/extensions/getstarted)
-
-
--------------
-Michael Xieyang Liu | [Website](https://lxieyang.github.io)
+This demo uses [this](https://github.com/lxieyang/chrome-extension-boilerplate-react#readme) Chrome Extension boilerplate.

@@ -1,8 +1,19 @@
-import {
-  printLine
-} from './modules/print';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { CallProvider } from './contexts/CallProvider';
+import Main from './components/Main';
 
-console.log('Content script works!');
-console.log('Must reload extension for modifications to take effect.');
+class App extends React.Component {
+  render() {
+    return (
+      <CallProvider>
+        <Main />
+      </CallProvider>
+    );
+  }
+}
 
-printLine('Using a function from the Print Module');
+const app = document.createElement('div');
+app.id = 'daily-collab-root';
+document.body.prepend(app);
+ReactDOM.render(<App />, app);
