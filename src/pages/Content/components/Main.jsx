@@ -3,13 +3,13 @@ import { useCallState } from '../contexts/CallProvider';
 import theme from '../theme';
 import Call from './Call';
 import LightButton from './LightButton';
+import ErrorMsg from './ErrorMsg';
 import { Loading } from './Loading';
 import Setup from './Setup';
 import Haircheck from './Haircheck';
 import JoinCallButton from './JoinCallButton';
 import StartCallButton from './StartCallButton';
 import Authorization from './Authorization';
-import Card from './Card';
 
 export default function Main() {
   const {
@@ -97,16 +97,7 @@ export default function Main() {
     <div className="main-container">
       {mainContent}
       {(backgroundError || authError) && (
-        <div className="error-container">
-          <Card
-            padding={4}
-            borderColor={theme.colors.red}
-            background={theme.colors.lightRed}
-          >
-            <p className="background-error">{authError}</p>
-            <p className="background-error">{backgroundError}</p>
-          </Card>
-        </div>
+        <ErrorMsg backgroundError={backgroundError} authError={authError} />
       )}
       <style jsx global>{`
         .background-error {
@@ -136,11 +127,6 @@ export default function Main() {
         }
         .main-container :global(.light-btn-container .join-button svg) {
           margin-left: auto;
-        }
-        .main-container .error-container {
-          position: absolute;
-          top: -32px;
-          white-space: nowrap;
         }
       `}</style>
     </div>
