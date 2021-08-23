@@ -8,7 +8,7 @@ export default function StartCallButton() {
 
   /**
    * The Daily call will actually be created and joined from
-   * the Haircheck ("lobby"), so bring the local user to the
+   * the Haircheck (prejoin UI), so bring the local user to the
    * Haircheck view for device selections.
    */
   const startSetup = () => {
