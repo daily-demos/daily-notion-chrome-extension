@@ -42,12 +42,15 @@ export default function Main() {
     setButtonLoading(false);
   }, [daily, setCallState]);
 
-  // if the Daily call object exists (triggered by createCallObject), go to the haircheck to join call
+  /**
+   * If the Daily call object exists (triggered by createCallObject), go
+   * to the haircheck to give the option to join the call
+   */
   useEffect(() => {
     if (!daily || !dailyUrl) return;
     if (daily.meetingState() === 'joined-meeting') {
       /**
-       * if the meeting is already joined, this indicates a tab change.
+       * If the meeting is already joined, this indicates a tab change.
        * for now, just exit the call.
        */
       leaveCall();

@@ -54,7 +54,9 @@ export default function Setup() {
   }, [transcriptionRef, type, workspaceId]);
 
   /**
-   * Once the Daily room has been created, initialize the Daily call and go to the haircheck
+   * Once the Daily room has been created by the background script after clicking
+   * the “Create call” button, the dailyUrl is set and the call object can be created.
+   * The user will then be redirected to the haircheck.
    */
   useEffect(() => {
     if (!dailyUrl) return;
