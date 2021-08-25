@@ -111,6 +111,10 @@ export default function Main() {
           display: block;
           margin: auto;
         }
+        // override Notion styles
+        ::-webkit-scrollbar-track {
+          background: white !important;
+        }
       `}</style>
       <style jsx>{`
         .main-container {

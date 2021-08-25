@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "0.0.0.7",
+  "version": "0.0.0.8",
   "name": "Collab: Video calls in Notion— Daily API demo",
   "description": "Use the Daily API to embed and transcribe video calls directly in your Notion workspace.",
   "background": { "service_worker": "background.bundle.js" },

@@ -160,7 +160,6 @@ export default function Controls() {
         .controls-container {
           display: flex;
           flex-direction: column;
-          justify-content: center;
         }
         .control-buttons {
           display: flex;
@@ -176,6 +175,7 @@ export default function Controls() {
         }
         .transcription {
           width: 136px;
+          margin-top: 1px;
         }
       `}</style>
     </div>
