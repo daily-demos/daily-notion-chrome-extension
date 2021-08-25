@@ -68,3 +68,13 @@ Admins must explicitly allow write access for Notion documents, so any transcrip
 ## Boilerplate
 
 This demo uses [this](https://github.com/lxieyang/chrome-extension-boilerplate-react#readme) Chrome Extension boilerplate.
+
+---
+
+## Related blog posts/tutorials
+
+Learn more about this demo on the [Daily blog](https://www.daily.co/blog/tag/collab-chrome-extension/).
+
+- [Introduction to the Daily Collab blog series](https://www.daily.co/blog/embed-and-transcribe-a-daily-video-call-in-any-notion-doc/)
+- [Understanding the anatomy of a Chrome extension](https://www.daily.co/blog/the-anatomy-of-a-daily-video-call-chrome-extension/)
+- [How to use the Notion API to authorize the Daily Collab transcription feature](https://www.daily.co/blog/authorizing-dailys-chrome-extension-beta-transcription-feature-with-notions-api/)
