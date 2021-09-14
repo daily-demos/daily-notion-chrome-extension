@@ -71,27 +71,6 @@ export const CallProvider = ({ children }) => {
   }, []);
 
   /**
-   * This is an internal update that will be exposed in daily-js soon
-   * (at the time of writing this). Since the number of videos isn't limited
-   * and the videos are small, use the lowest layer to reduce performance
-   * hits.
-   */
-  useEffect(() => {
-    if (!participants || callType === 'audio') return;
-    participants.forEach((p) => {
-      if (p.local) {
-        // eslint-disable-next-line
-        const sfu = rtcpeers?.sfu;
-        // eslint-disable-next-line
-        const isSFU = rtcpeers?.currentlyPreferred?.typeName?.() === 'sfu';
-        if (!isSFU) return;
-        // set to the lowest layer for performance improvement
-        sfu.setPreferredLayerForTrack(p.id, 'cam-video', 0);
-      }
-    });
-  }, [participants, callType]);
-
-  /**
    * Get the Notion workspace ID from local storage. It it added to local
    * storage when Notion is authenticated with the auth code. If it's not
    * in local, assume the Notion features (transcription) have not been

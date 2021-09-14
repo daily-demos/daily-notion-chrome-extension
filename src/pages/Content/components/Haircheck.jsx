@@ -51,7 +51,13 @@ export default function Haircheck() {
     }
 
     daily
-      .join({ userName })
+      .join({
+        userName,
+        // Use lowest simulcast layer since the videos have small display anyway
+        receiveSettings: {
+          base: { video: { layer: 0 } }, // default: { layer: 2 }
+        },
+      })
       .then(() => {
         setCallState('joined');
         setButtonLoading(false);
