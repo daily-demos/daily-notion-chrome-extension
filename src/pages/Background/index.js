@@ -256,6 +256,7 @@ async function addTranscriptionTextToNotionDoc(request, tab) {
     const message = {
       error,
     };
+    // send error to content script
     chrome.tabs.sendMessage(tab?.id, message, noop);
   }
 }
