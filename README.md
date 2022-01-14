@@ -1,5 +1,7 @@
 # Daily Collab: Embed and transcribe Daily calls in Notion pages
 
+> Note: This demo app uses Manifest V2, which is being [deprecated by Chrome in 2022](https://developer.chrome.com/docs/extensions/mv3/mv2-sunset/). As of January 2022, new Chrome extensions using Manifest V2 will _not_ be accepted in the Chrome Store.
+
 ### Demo Chrome extension app from [Daily](https://www.daily.co/)
 
 Daily Collab is a demo Chrome extension that allows users to embed and transcribe Daily calls directly into Notion workspaces.
